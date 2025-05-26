@@ -1,19 +1,29 @@
 import pygame
 
 class Ball:
-    def __init__(self, screen_size, ball_size):
+    def __init__(self, screen_size, ball_radius):
         self.screen_size = screen_size
-        self.ball_size = ball_size
+        self.ball_radius = ball_radius
         self.ball_position = [screen_size[0]//2, screen_size[1]//2]
         self.ball_velocity = [0, 0]
 
     def draw(self, screen):
-        pygame.draw.circle(screen, (255, 255, 255), self.ball_position, self.ball_size)
-        pygame.draw.circle(screen, (255, 0, 0), self.ball_position, self.ball_size-2)
+        pygame.draw.circle(screen, (255, 255, 255), self.ball_position, self.ball_radius)
+        pygame.draw.circle(screen, (255, 0, 0), self.ball_position, self.ball_radius-2)
 
     def moove(self):
-        self.ball_position[0] += self.ball_velocity[0]
-        self.ball_position[1] += self.ball_velocity[1]
+        for i in range(2):
+
+            # Uptade ball position with velocity
+            self.ball_position[i] += self.ball_velocity[i]
+
+            # Bounce off walls
+            if self.ball_position[i] <= self.ball_radius or self.ball_position[i] >= self.screen_size[i] - self.ball_radius:
+                self.ball_velocity[i] *= -1
+
+
+
+
 
 
 class Circle:
